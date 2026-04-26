@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sound-explorer-v1';
+const CACHE_NAME = 'sound-explorer-v2';
 const urlsToCache = [
     './',
     './index.html',
@@ -6,7 +6,8 @@ const urlsToCache = [
     './main.js',
     './audio-processor.js',
     './storage.js',
-    './resonate-worklet.js'
+    './resonate-worklet.js',
+    './lesson-plan.pdf'
 ];
 
 self.addEventListener('install', (event) => {
