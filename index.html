@@ -35,6 +35,9 @@
             <button class="tab-btn" data-tab="map" aria-label="Map Tab">
                 <span class="tab-label">Map</span>
             </button>
+            <button class="tab-btn" data-tab="resources" aria-label="Resources Tab">
+                <span class="tab-label">Resources</span>
+            </button>
         </nav>
 
         <!-- Listen Tab -->
@@ -91,6 +94,46 @@
                     <p>Go to the Listen tab and press RECORD to capture your first sound.</p>
                 </div>
             </div>
+        </div>
+
+        <!-- Resources Tab -->
+        <div class="tab-content" id="resourcesTab">
+            <div class="resources-header">
+                <h2>Resources</h2>
+                <p class="resources-subtitle">Everything you need to get started</p>
+            </div>
+
+            <!-- Tutorial Video -->
+            <section class="resources-section">
+                <h3 class="resources-section-title">Tutorial Video</h3>
+                <div class="video-wrapper">
+                    <iframe
+                        src="https://www.youtube.com/embed/VLlSYjDsf7k"
+                        allowfullscreen
+                        title="Listening Playground Tutorial"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                    </iframe>
+                </div>
+            </section>
+
+            <!-- Lesson Plan Download -->
+            <section class="resources-section">
+                <h3 class="resources-section-title">Lesson Plan</h3>
+                <p class="resources-desc">Download the lesson plan PDF to help guide your session.</p>
+                <a class="btn-primary resources-download-btn" href="lesson-plan.pdf" download="Listening Playground Lesson Plan.pdf">
+                    Download Lesson Plan (PDF)
+                </a>
+            </section>
+
+            <!-- Feedback Form -->
+            <section class="resources-section">
+                <h3 class="resources-section-title">Share Your Feedback</h3>
+                <p class="resources-desc">We'd love to hear how your session went!</p>
+                <a class="resources-link-btn resources-feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeTkUa5QTP3MjDxmWfQP8VR8Kv91IC2fe0L0hROgDnWzvrOmA/viewform" target="_blank" rel="noopener noreferrer">
+                    Open Feedback Form ↗
+                </a>
+            </section>
         </div>
 
         <!-- Map Tab -->

@@ -1531,6 +1531,101 @@ input:focus-visible,
     box-shadow: var(--shadow);
 }
 
+/* Resources Tab */
+.resources-header {
+    background: linear-gradient(135deg, #bfdbfe 0%, #e9d5ff 100%);
+    padding: 2rem;
+    border-radius: 16px;
+    margin-bottom: var(--spacing);
+    text-align: center;
+}
+
+.resources-header h2 {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 0.5rem;
+}
+
+.resources-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+.resources-section {
+    background: var(--surface-color);
+    border-radius: 20px;
+    padding: 1.75rem;
+    margin-bottom: var(--spacing);
+    box-shadow: var(--shadow);
+}
+
+.resources-section-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+}
+
+.resources-desc {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 */
+    border-radius: 14px;
+    overflow: hidden;
+    background: #1e1b4b;
+    margin-bottom: 1rem;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 14px;
+}
+
+.resources-download-btn {
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    width: 100%;
+}
+
+.resources-link-btn {
+    display: inline-block;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(180deg, #fcd34d, #fbbf24);
+    color: var(--text-color);
+    font-size: 1.25rem;
+    font-weight: 800;
+    border-radius: 20px;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(251, 191, 36, 0.2);
+    transition: transform 120ms ease, box-shadow 120ms ease;
+    min-height: var(--min-touch);
+    line-height: 1.4;
+    box-sizing: border-box;
+}
+
+.resources-link-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.resources-feedback-btn {
+    background: linear-gradient(180deg, #86efac, #4ade80);
+    box-shadow: 0 8px 20px rgba(74, 222, 128, 0.2);
+}
+
 /* Footer */
 .app-footer {
     background: var(--surface-color);
