@@ -128,93 +128,112 @@ class SoundExplorer {
         // This function is no longer needed.
     }
 
+    // Safe element listener attachment helper
+    addEventListenerIfExists(id, event, handler) {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener(event, handler);
+            return true;
+        }
+        return false;
+    }
+
     setupEventListeners() {
         // Onboarding listeners are removed as the onboarding screen is gone.
 
-        // Tab navigation
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => this.switchTab(btn.dataset.tab));
-        });
+        try {
+            // Tab navigation
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => this.switchTab(btn.dataset.tab));
+            });
 
-        // Visualization start/stop button
-        document.getElementById('vizStartBtn').addEventListener('click', () => this.startListen());
+            // Visualization start/stop button
+            this.addEventListenerIfExists('vizStartBtn', 'click', () => this.startListen());
 
-        // Listen controls - removed smoothness and focus sliders
-        document.getElementById('recordBtn').addEventListener('click', () => this.toggleRecording());
+            // Listen controls - removed smoothness and focus sliders
+            this.addEventListenerIfExists('recordBtn', 'click', () => this.toggleRecording());
 
-        document.getElementById('gainSlider').addEventListener('input', (e) => {
-            if (this.audioProcessor) {
-                this.audioProcessor.setGain(e.target.value);
-            }
-            // ★ Update slider value display
-            const valueDisplay = document.getElementById('gainValue');
-            if (valueDisplay) {
-                valueDisplay.textContent = `${e.target.value}x`;
-            }
-        });
+            this.addEventListenerIfExists('gainSlider', 'input', (e) => {
+                if (this.audioProcessor) {
+                    this.audioProcessor.setGain(e.target.value);
+                }
+                // ★ Update slider value display
+                const valueDisplay = document.getElementById('gainValue');
+                if (valueDisplay) {
+                    valueDisplay.textContent = `${e.target.value}x`;
+                }
+            });
 
-        // Label modal
-        document.getElementById('saveLabel').addEventListener('click', () => this.saveRecording());
-        document.getElementById('cancelLabel').addEventListener('click', () => this.closeLabelModal());
+            // Label modal
+            this.addEventListenerIfExists('saveLabel', 'click', () => this.saveRecording());
+            this.addEventListenerIfExists('cancelLabel', 'click', () => this.closeLabelModal());
 
-        document.querySelectorAll('.tag-btn').forEach(btn => {
-            btn.addEventListener('click', () => btn.classList.toggle('active'));
-        });
+            document.querySelectorAll('.tag-btn').forEach(btn => {
+                btn.addEventListener('click', () => btn.classList.toggle('active'));
+            });
 
-        // Camera modal
-        document.getElementById('takePicture').addEventListener('click', () => this.takePicture());
-        document.getElementById('skipPicture').addEventListener('click', () => this.skipPicture());
+            // Camera modal
+            this.addEventListenerIfExists('takePicture', 'click', () => this.takePicture());
+            this.addEventListenerIfExists('skipPicture', 'click', () => this.skipPicture());
 
-        // Gallery
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            this.filterGallery(e.target.value);
-        });
+            // Gallery
+            this.addEventListenerIfExists('searchInput', 'input', (e) => {
+                this.filterGallery(e.target.value);
+            });
 
-        // Settings
-        document.getElementById('settingsBtn').addEventListener('click', () => this.openSettings());
-        document.getElementById('closeSettings').addEventListener('click', () => this.closeSettings());
-        document.getElementById('pauseAllBtn').addEventListener('click', () => this.pauseAllSounds());
-        
-        document.getElementById('recordingLength').addEventListener('input', (e) => {
-            this.recordingDuration = e.target.value * 1000;
-            document.getElementById('recordingLengthValue').textContent = `${e.target.value} seconds`;
-        });
+            // Settings
+            this.addEventListenerIfExists('settingsBtn', 'click', () => this.openSettings());
+            this.addEventListenerIfExists('closeSettings', 'click', () => this.closeSettings());
+            this.addEventListenerIfExists('pauseAllBtn', 'click', () => this.pauseAllSounds());
+            
+            this.addEventListenerIfExists('recordingLength', 'input', (e) => {
+                this.recordingDuration = e.target.value * 1000;
+                const el = document.getElementById('recordingLengthValue');
+                if (el) el.textContent = `${e.target.value} seconds`;
+            });
 
-        // geolocation toggle removed from UI; no event listener needed
+            // geolocation toggle removed from UI; no event listener needed
 
-        document.getElementById('uploadMapBtn').addEventListener('click', () => {
-            document.getElementById('mapBackgroundUpload').click();
-        });
+            this.addEventListenerIfExists('uploadMapBtn', 'click', () => {
+                const uploadEl = document.getElementById('mapBackgroundUpload');
+                if (uploadEl) uploadEl.click();
+            });
 
-        document.getElementById('mapBackgroundUpload').addEventListener('change', (e) => {
-            this.uploadMapBackground(e.target.files[0]);
-        });
+            this.addEventListenerIfExists('mapBackgroundUpload', 'change', (e) => {
+                this.uploadMapBackground(e.target.files[0]);
+            });
 
-        document.getElementById('exportDataBtn').addEventListener('click', () => this.exportPackage());
-        document.getElementById('importDataBtn').addEventListener('click', () => {
-            document.getElementById('importDataFile').click();
-        });
-        document.getElementById('importDataFile').addEventListener('change', (e) => {
-            this.importData(e.target.files[0]);
-        });
+            this.addEventListenerIfExists('exportDataBtn', 'click', () => this.exportPackage());
+            this.addEventListenerIfExists('importDataBtn', 'click', () => {
+                const importEl = document.getElementById('importDataFile');
+                if (importEl) importEl.click();
+            });
+            this.addEventListenerIfExists('importDataFile', 'change', (e) => {
+                this.importData(e.target.files[0]);
+            });
 
-        document.getElementById('clearDataBtn').addEventListener('click', () => this.confirmClearData());
+            this.addEventListenerIfExists('clearDataBtn', 'click', () => this.confirmClearData());
 
-        // Photo view modal
-        document.getElementById('closePhotoView').addEventListener('click', () => {
-            document.getElementById('photoViewModal').classList.add('hidden');
-        });
+            // Photo view modal
+            this.addEventListenerIfExists('closePhotoView', 'click', () => {
+                const modal = document.getElementById('photoViewModal');
+                if (modal) modal.classList.add('hidden');
+            });
 
-        // Confirm modal
-        document.getElementById('confirmCancel').addEventListener('click', () => {
-            document.getElementById('confirmModal').classList.add('hidden');
-        });
+            // Confirm modal
+            this.addEventListenerIfExists('confirmCancel', 'click', () => {
+                const modal = document.getElementById('confirmModal');
+                if (modal) modal.classList.add('hidden');
+            });
 
-        window.addEventListener('resize', () => this.resizeMapToImage());
-        
-        // Add global touch handlers for drag-and-drop
-        window.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false });
-        window.addEventListener('touchend', this.handleTouchEnd.bind(this));
+            window.addEventListener('resize', () => this.resizeMapToImage());
+            
+            // Add global touch handlers for drag-and-drop
+            window.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false });
+            window.addEventListener('touchend', this.handleTouchEnd.bind(this));
+        } catch (error) {
+            console.error('Error setting up event listeners:', error);
+        }
     }
 
     async initAudio(preAcquiredStream) {
