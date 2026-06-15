@@ -23,6 +23,7 @@ export class AudioProcessor {
     this.limiter = null;         // ★ limiter (second compressor with hard limiting)
     this.peakLevel = 0;           // ★ track peak levels for adaptive gain
     this.peakDecay = 0.95;        // ★ peak decay rate
+    this.recordCharacteristics = [];
   }
 
   async init(stream) {
@@ -258,7 +259,9 @@ export class AudioProcessor {
       'audio/aac'
     ];
     for (const t of candidates) {
-      if (window.MediaRecorder?.isTypeSupported?.(t)) return t;
+      if (window.MediaRecorder && typeof window.MediaRecorder.isTypeSupported === 'function' && window.MediaRecorder.isTypeSupported(t)) {
+        return t;
+      }
     }
     return '';
   }
@@ -296,7 +299,6 @@ export class AudioProcessor {
     return { overall, lowAvg, midAvg, highAvg, dominantRange };
   }
 
-  recordCharacteristics = [];
   startCharacteristicRecording() { this.recordCharacteristics = []; }
   captureCharacteristic() {
     const c = this.getSoundCharacteristics();

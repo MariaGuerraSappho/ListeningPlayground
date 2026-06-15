@@ -113,8 +113,12 @@ class SoundExplorer {
     }
 
     async init() {
-        await this.loadSettings();
-        await this.loadRecordings();
+        try {
+            await this.loadSettings();
+            await this.loadRecordings();
+        } catch (error) {
+            console.warn('Storage initialization failed, continuing without persistence:', error);
+        }
         this.setupEventListeners();
         // removed auto-start; wait for user to press START
         // await this.startAutoVisualization();
@@ -920,7 +924,7 @@ class SoundExplorer {
     }
 
     async addToMap(recordingId, x, y) {
-        const color = this.mapPositions[recordingId]?.color || this.getColorForRecording(recordingId);
+        const color = (this.mapPositions[recordingId] && this.mapPositions[recordingId].color) || this.getColorForRecording(recordingId);
         this.mapPositions[recordingId] = { x, y, color };
         await this.storage.set('mapPositions', this.mapPositions);
         this.renderMap();

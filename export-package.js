@@ -52,19 +52,31 @@ export class Exporter {
     zip.file('metadata.json', JSON.stringify({ items }, null, 2));
     // CSV summary
     const csv = ['id,label,timestamp,duration_seconds,tags,audio,thumbnail,photo,x,y,color'].concat(
-      items.map(it => [
-        it.id,
-        `"${(it.label||'').replace(/"/g,'""')}"`,
-        new Date(it.timestamp).toISOString(),
-        Math.round((it.durationMs||0)/1000),
-        `"${(it.tags||[]).join('|').replace(/"/g,'""')}"`,
-        it.audio,
-        it.thumbnail,
-        it.photo ?? '',
-        it.map?.x ?? '',
-        it.map?.y ?? '',
-        it.map?.color ?? ''
-      ].join(','))
+      items.map(it => {
+        var photo = '';
+        if (it.photo !== undefined && it.photo !== null) photo = it.photo;
+        var mapX = '';
+        var mapY = '';
+        var mapColor = '';
+        if (it.map && typeof it.map === 'object') {
+          if (it.map.x !== undefined && it.map.x !== null) mapX = it.map.x;
+          if (it.map.y !== undefined && it.map.y !== null) mapY = it.map.y;
+          if (it.map.color !== undefined && it.map.color !== null) mapColor = it.map.color;
+        }
+        return [
+          it.id,
+          `"${(it.label||'').replace(/"/g,'""')}"`,
+          new Date(it.timestamp).toISOString(),
+          Math.round((it.durationMs||0)/1000),
+          `"${(it.tags||[]).join('|').replace(/"/g,'""')}"`,
+          it.audio,
+          it.thumbnail,
+          photo,
+          mapX,
+          mapY,
+          mapColor
+        ].join(',');
+      })
     ).join('\n');
     zip.file('summary.csv', csv);
     // README
