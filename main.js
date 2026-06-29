@@ -1,6 +1,7 @@
 import { AudioProcessor } from './audio-processor.js';
 import { Storage } from './storage.js';
 import { Exporter } from './export-package.js';
+import { initGamelan } from './gamelan.js';
 
 class SoundExplorer {
     constructor() {
@@ -288,6 +289,12 @@ class SoundExplorer {
 
         if (tab === 'hunt') {
             this.renderMissions();
+        }
+
+        if (tab === 'gamelan' && !this._gamelanMounted) {
+            this._gamelanMounted = true;
+            const tabEl = document.getElementById('gamelanTab');
+            if (tabEl) this._gamelanUI = initGamelan(tabEl);
         }
     }
 

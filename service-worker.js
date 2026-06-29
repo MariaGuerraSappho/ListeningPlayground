@@ -1,9 +1,10 @@
-const CACHE_NAME = 'sound-explorer-v2';
+const CACHE_NAME = 'sound-explorer-v3';
 const urlsToCache = [
     './',
     './index.html',
     './styles.css',
     './main.js',
+    './gamelan.js',
     './audio-processor.js',
     './storage.js',
     './resonate-worklet.js',
