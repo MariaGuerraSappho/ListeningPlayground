@@ -9,6 +9,7 @@
     <link rel="manifest" href="manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 </head>
 <body>
     <!-- Main App Container -->
@@ -37,6 +38,9 @@
             </button>
             <button class="tab-btn" data-tab="resources" aria-label="Resources Tab">
                 <span class="tab-label">Resources</span>
+            </button>
+            <button class="tab-btn" data-tab="gamelan" aria-label="Gamelan Tab">
+                <span class="tab-label">Gamelan</span>
             </button>
         </nav>
 
@@ -264,6 +268,9 @@
             </div>
         </div>
     </div>
+
+    <!-- Gamelan Tab -->
+    <div class="tab-content" id="gamelanTab"></div>
 
     <!-- Footer -->
     <footer class="app-footer">
