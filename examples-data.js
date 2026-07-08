@@ -1,0 +1,14 @@
+// Example sound/photo/sonogram/tag sets recorded by children during the pilot,
+// shown as read-only examples in the Examples tab.
+export const EXAMPLE_SOUNDS = [
+  { label: "ASMR pipe",       image: "examples/images/2025-10-13_ASMRpipe_1760360997981.jpg",       audio: "examples/audio/2025-10-13_ASMRpipe_1760360997981.wav",       sonogram: "examples/sonograms/2025-10-13_ASMRpipe_1760360997981.png",       tags: ["mechanical"] },
+  { label: "ASMR bark",       image: "examples/images/2025-10-13_Asmrbark_1760361191984.jpg",        audio: "examples/audio/2025-10-13_Asmrbark_1760361191984.wav",        sonogram: "examples/sonograms/2025-10-13_Asmrbark_1760361191984.png",        tags: ["flowing", "quiet"] },
+  { label: "Feet",            image: "examples/images/2025-10-13_Feet_1760361192228.jpg",             audio: "examples/audio/2025-10-13_Feet_1760361192228.wav",             sonogram: "examples/sonograms/2025-10-13_Feet_1760361192228.png",             tags: ["thunder", "rustling"] },
+  { label: "Grit salt",       image: "examples/images/2025-10-13_Gritsalt_1760360948095.jpg",         audio: "examples/audio/2025-10-13_Gritsalt_1760360948095.wav",         sonogram: "examples/sonograms/2025-10-13_Gritsalt_1760360948095.png",         tags: ["thunder"] },
+  { label: "Sand cup",        image: "examples/images/2025-10-13_Sandcup_1760361621398.jpg",          audio: "examples/audio/2025-10-13_Sandcup_1760361621398.wav",          sonogram: "examples/sonograms/2025-10-13_Sandcup_1760361621398.png",          tags: ["flowing"] },
+  { label: "Untitled sound",  image: "examples/images/2025-10-13_UntitledSound_1760361499169.jpg",    audio: "examples/audio/2025-10-13_UntitledSound_1760361499169.wav",    sonogram: "examples/sonograms/2025-10-13_UntitledSound_1760361499169.png",    tags: ["rhythmic", "continuous"] },
+  { label: "Wood",            image: "examples/images/2025-10-13_Wood_1760361773350.jpg",             audio: "examples/audio/2025-10-13_Wood_1760361773350.wav",             sonogram: "examples/sonograms/2025-10-13_Wood_1760361773350.png",             tags: ["voices", "loud"] },
+  { label: "Big bottle bang", image: "examples/images/2025-10-14_BIGBOTTLEBANG_1760448488490.jpg",    audio: "examples/audio/2025-10-14_BIGBOTTLEBANG_1760448488490.wav",    sonogram: "examples/sonograms/2025-10-14_BIGBOTTLEBANG_1760448488490.png",    tags: ["thunder", "loud"] },
+  { label: "Stamping",        image: "examples/images/2025-10-14_Stamping_1760447721922.jpg",         audio: "examples/audio/2025-10-14_Stamping_1760447721922.wav",         sonogram: "examples/sonograms/2025-10-14_Stamping_1760447721922.png",         tags: ["thunder", "loud"] },
+  { label: "Leaves",          image: "examples/images/2025-10-14_leaves_1760447991578.jpg",           audio: "examples/audio/2025-10-14_leaves_1760447991578.wav",           sonogram: "examples/sonograms/2025-10-14_leaves_1760447991578.png",           tags: ["water", "leaves", "rustling"] },
+];

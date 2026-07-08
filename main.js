@@ -2,6 +2,7 @@ import { AudioProcessor } from './audio-processor.js';
 import { Storage } from './storage.js';
 import { Exporter } from './export-package.js';
 import { initGamelan } from './gamelan.js';
+import { EXAMPLE_SOUNDS } from './examples-data.js';
 
 class SoundExplorer {
     constructor() {
@@ -296,6 +297,73 @@ class SoundExplorer {
             const tabEl = document.getElementById('gamelanTab');
             if (tabEl) this._gamelanUI = initGamelan(tabEl);
         }
+
+        if (tab === 'examples' && !this._examplesMounted) {
+            this._examplesMounted = true;
+            this.renderExamples();
+        }
+    }
+
+    renderExamples() {
+        const grid = document.getElementById('examplesGrid');
+        if (!grid) return;
+
+        grid.innerHTML = EXAMPLE_SOUNDS.map((ex, i) => `
+            <div class="example-card" data-index="${i}">
+                <img src="${ex.image}" alt="${ex.label}" class="example-card-photo">
+                <img src="${ex.sonogram}" alt="Sonogram of ${ex.label}" class="example-card-sonogram">
+                <div class="example-card-content">
+                    <h3 class="example-card-label">${ex.label}</h3>
+                    <div class="example-card-tags">
+                        ${ex.tags.map(tag => `<span class="tag-chip">${tag}</span>`).join('')}
+                    </div>
+                    <button class="btn-play" data-index="${i}">
+                        <span>Play</span>
+                    </button>
+                </div>
+            </div>
+        `).join('');
+
+        grid.querySelectorAll('.btn-play').forEach(btn => {
+            btn.addEventListener('click', () => this.playExample(Number(btn.dataset.index)));
+        });
+    }
+
+    playExample(index) {
+        const ex = EXAMPLE_SOUNDS[index];
+        if (!ex) return;
+        if (this._exampleAudio) {
+            this._exampleAudio.pause();
+            this._exampleAudio = null;
+        }
+        document.querySelectorAll('#examplesGrid .example-card').forEach(card => {
+            card.classList.remove('playing');
+        });
+        document.querySelectorAll('#examplesGrid .btn-play').forEach(btn => {
+            btn.innerHTML = '<span>Play</span>';
+        });
+
+        const wasPlaying = this._exampleAudioIndex === index && this._exampleWasPlaying;
+        this._exampleWasPlaying = false;
+        if (wasPlaying) return;
+
+        const audio = new Audio(ex.audio);
+        this._exampleAudio = audio;
+        this._exampleAudioIndex = index;
+        this._exampleWasPlaying = true;
+
+        const card = document.querySelector(`#examplesGrid .example-card[data-index="${index}"]`);
+        const btn = document.querySelector(`#examplesGrid .btn-play[data-index="${index}"]`);
+        if (card) card.classList.add('playing');
+        if (btn) btn.innerHTML = '<span>Playing</span>';
+
+        audio.addEventListener('ended', () => {
+            this._exampleWasPlaying = false;
+            if (card) card.classList.remove('playing');
+            if (btn) btn.innerHTML = '<span>Play</span>';
+        });
+
+        audio.play();
     }
 
     async toggleRecording() {

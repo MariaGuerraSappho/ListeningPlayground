@@ -42,6 +42,9 @@
             <button class="tab-btn" data-tab="gamelan" aria-label="Gamelan Tab">
                 <span class="tab-label">Gamelan</span>
             </button>
+            <button class="tab-btn" data-tab="examples" aria-label="Examples Tab">
+                <span class="tab-label">Examples</span>
+            </button>
         </nav>
 
         <!-- Listen Tab -->
@@ -140,6 +143,15 @@
             </section>
         </div>
 
+        <!-- Examples Tab -->
+        <div class="tab-content" id="examplesTab">
+            <div class="examples-header">
+                <h2>All images, recordings and tags added by children</h2>
+                <p class="examples-subtitle">Tap a sound to hear it, and see its picture, sonogram and tags</p>
+            </div>
+            <div class="examples-grid" id="examplesGrid"></div>
+        </div>
+
         <!-- Map Tab -->
         <div class="tab-content" id="mapTab">
             <div class="map-content-wrapper">
@@ -154,6 +166,9 @@
                 </div>
             </div>
         </div>
+
+        <!-- Gamelan Tab -->
+        <div class="tab-content" id="gamelanTab"></div>
     </div>
 
     <!-- Badge Earned Popup -->
@@ -268,9 +283,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Gamelan Tab -->
-    <div class="tab-content" id="gamelanTab"></div>
 
     <!-- Footer -->
     <footer class="app-footer">

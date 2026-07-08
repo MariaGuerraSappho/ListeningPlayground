@@ -472,6 +472,7 @@ GamelanUI.prototype._tpl = function() {
   var code = inSession ? this.session.code : '';
 
   return '<div class="gln-root">' +
+    this._introTpl(inSession) +
     '<section class="gln-session-panel">' +
     (inSession ? this._sessionActiveTpl(code, isHost) : this._sessionIdleTpl()) +
     '</section>' +
@@ -485,6 +486,26 @@ GamelanUI.prototype._tpl = function() {
     '<div class="gln-keys-area" id="glnKeysArea">' + this._keysTpl(instId) + '</div>' +
     (inSession ? '<div class="gln-players" id="glnPlayers">' + this._playersTpl() + '</div>' : '') +
     (!inSession ? this._pickerTpl(instId) : '') +
+    '</div>';
+};
+
+GamelanUI.prototype._introTpl = function(inSession) {
+  if (inSession) {
+    return '<div class="gln-intro gln-intro-compact">' +
+      '&#127928; Shared session &middot; everyone in the room hears what everyone plays' +
+      '</div>';
+  }
+  return '<div class="gln-intro">' +
+    '<h2 class="gln-intro-title">Gamelan Ensemble</h2>' +
+    '<p class="gln-intro-lede">Gamelan is a community instrument — it is traditionally played as a group, ' +
+    'not alone, and the music only comes together when everyone plays their part. This is a collective practice, ' +
+    'and this tab lets you do that together, live, from your own phones.</p>' +
+    '<ol class="gln-intro-steps">' +
+      '<li><strong>One person hosts.</strong> Tap <em>Create Session</em> below to start and get a 4-letter code.</li>' +
+      '<li><strong>Everyone else joins.</strong> On your own phone, type that code into the <em>Join</em> box.</li>' +
+      '<li><strong>Pick your instrument.</strong> Saron, Demung, Bonang, Kempul, Gong or Kendang — each plays a different role in the ensemble.</li>' +
+      '<li><strong>Play together.</strong> Tap the keys — whatever anyone in the group plays, everyone hears, in real time.</li>' +
+    '</ol>' +
     '</div>';
 };
 
