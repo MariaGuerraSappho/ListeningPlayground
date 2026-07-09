@@ -118,6 +118,23 @@ body {
     text-shadow: 0 2px 0 rgba(255,255,255,0.5);
 }
 
+@media (max-width: 700px) {
+    .app-header {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 0.85rem;
+    }
+
+    .app-header h1 {
+        font-size: 1.3rem;
+    }
+
+    .app-version {
+        margin-left: 0;
+        font-size: 0.75rem;
+    }
+}
+
 /* Buttons - chunkier and more colorful */
 .btn-primary, .btn-secondary, .btn-danger, .btn-record {
     font-size: 1.25rem;
@@ -213,6 +230,30 @@ body {
     font-size: 1rem;
     font-weight: 600;
     color: var(--text-secondary);
+}
+
+/* On narrow phones, 7 tabs can't all fit at a readable size —
+   let the bar scroll horizontally instead of squeezing every tab. */
+@media (max-width: 700px) {
+    .tab-nav {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .tab-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tab-btn {
+        flex: 0 0 auto;
+        min-width: 78px;
+        padding: 0.75rem 0.9rem;
+    }
+
+    .tab-label {
+        font-size: 0.85rem;
+    }
 }
 
 .tab-btn.active {
@@ -763,6 +804,8 @@ body {
     transform: translate(-50%, -50%);
     transition: transform 160ms cubic-bezier(.2,.9,.2,1), box-shadow 160ms ease;
     color: white;
+    /* Stop the browser treating a drag on a pin as a page scroll/pan gesture */
+    touch-action: none;
 }
 
 .map-pin:hover {

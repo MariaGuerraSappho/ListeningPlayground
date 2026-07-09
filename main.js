@@ -4,6 +4,8 @@ import { Exporter } from './export-package.js';
 import { initGamelan } from './gamelan.js';
 import { EXAMPLE_SOUNDS } from './examples-data.js';
 
+const VALID_TABS = ['listen', 'hunt', 'gallery', 'map', 'resources', 'gamelan', 'examples'];
+
 class SoundExplorer {
     constructor() {
         this.storage = new Storage();
@@ -124,6 +126,12 @@ class SoundExplorer {
         this.setupEventListeners();
         // removed auto-start; wait for user to press START
         // await this.startAutoVisualization();
+
+        // Deep-link: open directly on the tab named in the URL hash, e.g. #examples
+        const initialTab = location.hash.slice(1);
+        if (VALID_TABS.includes(initialTab) && initialTab !== this.currentTab) {
+            this.switchTab(initialTab);
+        }
     }
 
     showOnboarding() {
@@ -232,8 +240,12 @@ class SoundExplorer {
                 if (modal) modal.classList.add('hidden');
             });
 
+            // Keep tabs in sync with the URL hash (back/forward buttons, shared/pasted links)
+            window.addEventListener('popstate', () => this._followHash());
+            window.addEventListener('hashchange', () => this._followHash());
+
             window.addEventListener('resize', () => this.resizeMapToImage());
-            
+
             // Add global touch handlers for drag-and-drop
             window.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false });
             window.addEventListener('touchend', this.handleTouchEnd.bind(this));
@@ -301,6 +313,20 @@ class SoundExplorer {
         if (tab === 'examples' && !this._examplesMounted) {
             this._examplesMounted = true;
             this.renderExamples();
+        }
+
+        // Reflect the active tab in the URL so it can be linked to directly
+        const wantedHash = '#' + tab;
+        if (location.hash !== wantedHash) {
+            history.pushState(null, '', wantedHash);
+        }
+    }
+
+    // Called on popstate/hashchange (back/forward buttons, or a pasted/edited URL)
+    _followHash() {
+        const tab = location.hash.slice(1);
+        if (VALID_TABS.includes(tab) && tab !== this.currentTab) {
+            this.switchTab(tab);
         }
     }
 
@@ -786,6 +812,11 @@ class SoundExplorer {
 
         const originalElement = e.target.closest('.map-recording-item, .map-pin');
         if (!originalElement) return;
+
+        // Claim this gesture immediately so the browser never starts its own
+        // scroll on it — on iOS, once a scroll begins, later preventDefault()
+        // calls in the same gesture can no longer stop it.
+        e.preventDefault();
 
         const touch = e.touches[0];
         this.touchDragState = {
